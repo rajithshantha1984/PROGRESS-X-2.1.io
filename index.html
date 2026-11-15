@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1b">
+  <meta name="description" content="PROGRESS - X is a futuristic task dashboard for planning, tracking, and completing your goals.">
+  <meta property="og:title" content="PROGRESS - X | Smart Progress Dashboard">
+  <meta property="og:description" content="Plan it. Prioritize it. Finish it.">
+  <meta property="og:type" content="website">
+  <link rel="icon" type="image/png" sizes="192x192" href="progress-x-icon-192.png">
+  <link rel="apple-touch-icon" href="progress-x-icon-192.png">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="PROGRESS X home">
+        <img class="brand-logo" src="progress-x-logo.png" alt="PROGRESS-X logo" width="52" height="52">
+        <span class="brand-info">
+          <strong>PROGRESS - <span>X</span></strong>
+          <small>SMART PROGRESS DASHBOARD</small>
+        </span>
+      </a>
+      <div class="live-status"><span class="status-dot"></span> LIVE WORKSPACE</div>
+    </header>
+
+    <main>
+      <section class="hero panel">
+        <div class="hero-copy">
+          <p class="eyebrow">YOUR PERSONAL WORKSPACE</p>
+          <h1>Turn your plans into <span>progress.</span></h1>
+          <p class="hero-description">Organize your tasks, stay focused, and make every step count.</p>
+        </div>
+        <div class="hero-symbol" aria-hidden="true">X</div>
+      </section>
+
+      <section class="progress-panel panel" aria-labelledby="overallTitle">
+        <div class="progress-content">
+          <div>
+            <p class="eyebrow">YOUR PERFORMANCE</p>
+            <h2 id="overallTitle">Overall Progress</h2>
+            <p class="muted">Small steps. Real progress.</p>
+          </div>
+          <div class="progress-ring" id="progressRing" role="progressbar" aria-label="Overall task completion" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="progress-ring-inner">
+              <strong id="progressPercentage">0%</strong>
+              <span>COMPLETE</span>
+            </div>
+          </div>
+        </div>
+        <div class="progress-track" aria-hidden="true"><div class="progress-fill" id="progressFill"></div></div>
+        <div class="progress-footer">
+          <span id="progressMessage">Your journey starts here.</span>
+          <strong id="progressFraction">0 of 0 tasks</strong>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Task statistics">
+        <article class="stat-card panel">
+          <span class="stat-icon blue-icon">▤</span>
+          <p>Total Tasks</p><strong id="totalTasks">0</strong><small>In your workspace</small>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-icon green-icon">✓</span>
+          <p>Completed</p><strong class="green-text" id="completedTasks">0</strong><small>Tasks finished</small>
+        </article>
+        <article class="stat-card panel">
+          <span class="stat-icon purple-icon">◷</span>
+          <p>Remaining</p><strong class="purple-text" id="remainingTasks">0</strong><small>Still to be done</small>
+        </article>
+      </section>
+
+      <section class="workspace panel" aria-labelledby="tasksHeading">
+        <div class="workspace-heading">
+          <div><p class="eyebrow">WORKSPACE</p><h2 id="tasksHeading">My Tasks</h2><p class="muted">Plan it. Prioritize it. Finish it.</p></div>
+          <span class="task-count-badge" id="taskCountBadge">0 TASKS</span>
+        </div>
+
+        <form class="task-form" id="taskForm">
+          <label class="sr-only" for="taskTitle">Task name</label>
+          <input id="taskTitle" name="title" maxlength="160" placeholder="What do you want to accomplish?" autocomplete="off" required>
+          <button class="btn btn-primary" type="submit"><span aria-hidden="true">＋</span> Add Task</button>
+        </form>
+        <p class="form-hint" id="formHint" aria-live="polite">Press Enter or select Add Task to create a task.</p>
+
+        <div class="task-options">
+          <label>Category
+            <select id="taskCategory">
+              <option>Personal</option><option>Study</option><option>Work</option><option>Project</option><option>Health</option>
+            </select>
+          </label>
+          <label>Priority
+            <select id="taskPriority">
+              <option value="medium">Medium</option><option value="high">High</option><option value="low">Low</option>
+            </select>
+          </label>
+          <label>Due date
+            <input id="taskDueDate" type="date">
+          </label>
+        </div>
+
+        <div class="shortcut-actions">
+          <button class="btn btn-complete-all" id="completeAllBtn" type="button">✓ Complete All</button>
+          <button class="btn btn-restart" id="restartBtn" type="button">↻ Restart App</button>
+        </div>
+
+        <div class="list-toolbar">
+          <div><h3>Task List</h3><p class="muted" id="filterSummary">All your tasks in one place.</p></div>
+          <div class="filter-group" role="group" aria-label="Filter tasks">
+            <button class="filter-btn active" data-filter="all" type="button">All</button>
+            <button class="filter-btn" data-filter="active" type="button">Active</button>
+            <button class="filter-btn" data-filter="completed" type="button">Completed</button>
+          </div>
+        </div>
+
+        <div class="task-list" id="taskList" aria-live="polite"></div>
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">＋</div><h3>Ready to make progress?</h3>
+          <p>Add your first task above and start building your next level.</p>
+        </div>
+        <div class="workspace-footer">
+          <span><span class="status-dot"></span> Changes save automatically in this browser.</span>
+          <button class="text-button" id="exportBtn" type="button">Export tasks (JSON)</button>
+        </div>
+      </section>
+    </main>
+    <footer class="footer"><p><strong>PROGRESS - X</strong> · BUILD YOUR NEXT LEVEL.</p><p>Your tasks stay on this device unless you export them.</p></footer>
+  </div>
+
+  <div class="modal-overlay" id="confirmModal" aria-hidden="true">
+    <section class="confirm-modal panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDescription">
+      <div class="modal-icon">!</div><p class="eyebrow modal-eyebrow">CONFIRM ACTION</p>
+      <h2 id="modalTitle">Restart workspace?</h2>
+      <p id="modalDescription">This will permanently delete all tasks saved in this browser. Export your tasks first if you want a backup.</p>
+      <div class="modal-actions"><button class="btn modal-cancel" id="cancelRestart" type="button">Cancel</button><button class="btn modal-confirm" id="confirmRestart" type="button">Yes, restart</button></div>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
